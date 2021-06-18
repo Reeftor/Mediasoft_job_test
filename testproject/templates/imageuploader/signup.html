@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}<title>Sign Up</title>{% endblock %}
+
+{% block content %}
+    <style>
+    .center {
+    width: 200px;
+    padding: 10px;
+    margin: auto;
+    }
+    .m-20 {
+    margin: 0px 0px 20px 0px;
+    }
+    </style>
+    <div class="center">
+        <h1>Регистрация</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Логин" class="m-20">
+            <input type="password" name="password" placeholder="Пароль" class="m-20">
+            <input type="password" name="password2" placeholder="Подтвердите пароль" class="m-20">
+            <input type="submit" value="Зарегистрироваться">
+        </form>
+    </div>
+{% endblock %}

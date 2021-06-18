@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}<title>Login</title>{% endblock %}
+
+{% block content %}
+    <style>
+    .center {
+    width: 200px;
+    padding: 10px;
+    margin: auto;
+    }
+    .m-20 {
+    margin: 0px 0px 20px 0px;
+    }
+    </style>
+    <div class="center">
+        <h1>Войти</h1>
+        {% if error %}
+            <div style="color:red;">{{ error }}</div>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Логин" class="m-20 ">
+            <input type="password" name="password" placeholder="Пароль" class="m-20">
+            <input type="submit" value="Войти">
+        </form>
+    </div>
+{% endblock %}

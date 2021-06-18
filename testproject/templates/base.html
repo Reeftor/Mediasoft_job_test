@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Imageuploader HOME</title>{% endblock %}
+</head>
+<style>
+    .block {
+    background-color: #7fb8f1;
+    display: flex;
+    width: 100%;
+    }
+    .left {
+    padding-left: 2rem;
+    }
+    .link-block {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding-right: 2rem;
+    align-items: center;
+    }
+    .right {
+    margin-left: 1rem;
+    color: black;
+    }
+
+</style>
+
+<body>
+    <div class="block">
+        <h1 class="left">Imageuploader</h1>
+        <div class="link-block">
+            <a href=" {% url 'login' %}" class="right">Sign In</a>
+            <a href=" {% url 'signup' %}" class="right">Sign Up</a>
+            {% block hyperreferences %}
+            {% endblock %}
+            <a href="#" class="right"></a>
+        </div>
+    </div>
+
+    {% block content %}
+    <div>
+    </div>>
+    {% endblock %}
+
+</body>
+</html>
