@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.views.generic.base import TemplateView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
+from django.views.generic.base import TemplateView, RedirectView
 from django.urls import reverse
 from django.contrib.auth.models import User
 from .forms import ImageForm
@@ -49,10 +49,13 @@ class ProfileView(TemplateView):
         context = {}
         username = request.user.username
         uid = request.user.id
-        user_images = Image.objects.filter(user_id=uid)
+        user_images = Image.objects.filter(user_id=uid).order_by('-id')
         context['uid'] = uid
         context['username'] = username
         context['user_images'] = user_images
+
+        if not request.user.is_authenticated:
+            return redirect(reverse("login"))
 
         if request.method == 'POST':
             form = ImageForm(request.POST, request.FILES)
@@ -66,10 +69,38 @@ class ProfileView(TemplateView):
                         title=str(form.instance)
                     )
                     instance.save()
-
                 return render(request, self.template_name, context)
         else:
             form = ImageForm()
             context['form'] = form
 
         return render(request, self.template_name, context)
+
+
+class ImageClickCounterRedirectView(RedirectView):
+    permanent = False
+    query_string = True
+
+    def get_redirect_url(self, *args, **kwargs):
+        pk = kwargs['pk']
+        image = get_object_or_404(Image, pk=pk)
+        image.update_views(pk)
+        return image.image_url
+
+
+def user_logout(request):
+    user = request.user
+    if user.is_authenticated:
+        logout(request)
+        return redirect(reverse("login"))
+
+
+def delete_image(request, image_id):
+    user = request.user
+    uid = user.id
+
+    if user.is_authenticated:
+        Image.objects.get(id=image_id, user_id=uid).delete()
+        return redirect(reverse("profile"))
+
+    return redirect(reverse("login"))

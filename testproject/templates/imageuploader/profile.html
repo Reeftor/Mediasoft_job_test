@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}<title>Profile</title>{% endblock %}
+
 {% block hyperreferences %}
-<a href=" {% url 'login' %}" class="right">Logout</a>
+<a href=" {% url 'logout' %}" class="right">Logout</a>
 {% endblock %}
+
 {% block content %}
 <div>
   <h1>{{uid}}</h1>
@@ -14,11 +16,40 @@
    {{ form.as_p }}
   <button type="submit">Upload</button>
 </form>
+<style>
+    .button1 {
+    border: none;
+    color: black;
+    padding: 2px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 1px;
+    transition-duration: 2s;
+    cursor: pointer;
+    background-color: #ff0;
+    color: black;
+    height: auto;
+    width: auto;
+}
 
-{% if user_images %}
+    .button1:hover {background-color: #f00;}
+
+    .icon-block {
+    display: inline-block;
+    padding: 20px 15px;}
+</style>
+
 {% for i in user_images %}
-    <h3>{{i.title}}</h3>
-    <img src="{{ i.image_url }}" alt="connect" style="max-height:300px">
+    <div class="icon-block">
+        <h3>{{i.title}}</h3>  <h4>{{i.id}}</h4>
+        <a href="{% url 'viewcount' i.pk %}"><input type="image" src="{{i.image_url}}" height="80px" width="140px"></a><br>
+        <h4>Количество просмотров: {{i.view_count}}</h4>
+        <a href="{% url 'delete' i.id%}" class="button1">Delete image</a><br>
+    </div>
+{% empty %}
+    <h3>You have no uploaded images!</h3>
 {% endfor %}
-{% endif %}
+
 {% endblock %}
