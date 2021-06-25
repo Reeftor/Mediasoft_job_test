@@ -1,0 +1,18 @@
+{% extends 'imageuploader/profile.html' %}
+{% block title %}<title>Userpage</title>{% endblock %}
+
+{% block content %}
+<h2 class="n-1">{{user}} images:</h2>
+{% for i in user_images %}
+    <div class="icon-block">
+        <h3>{{i.title}}</h3>
+        <a href="{% url 'viewcount' i.pk %}" target="_blank">
+            <input type="image" src="{{i.image_url}}" height="80px" width="140px">
+        </a><br>
+        <h4>Количество просмотров: {{i.view_count}}</h4>
+        <a href="{% url 'delete' i.pk %}" class="button1">Delete</a><br>
+        <a href="{% url 'editpost' i.pk %}" class="button1 button2">Edit</a><br>
+
+    </div>
+{% endfor %}
+{% endblock %}

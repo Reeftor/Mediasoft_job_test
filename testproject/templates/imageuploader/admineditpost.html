@@ -1,0 +1,15 @@
+{% extends 'imageuploader/profile.html' %}
+{% block title %}<title>Edit Post</title>{% endblock %}
+
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+    {{ form.as_p }}
+  <button type="submit">Edit</button>
+</form>
+
+<h3 class="n-1">{{image.title}}</h3>
+<img src="{{image.image.url}}" height="400px" width="700px">
+
+{% endblock %}

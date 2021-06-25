@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}<title>Sign Up</title>{% endblock %}
+
+{% block content %}
+    <div class="center">
+        <h3>Create account:</h3>
+        {% if error %}
+            <div style="color: red;">{{ error }}</div><br>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" class="m-20">
+            <input type="password" name="password" placeholder="Password" class="m-20">
+            <input type="password" name="password2" placeholder="Confirm password" class="m-20">
+            {% if superuser %}
+                <p style="margin-top: 10px">Enter your password to create superuser:</p>
+                <input type="password" name="keyword" placeholder="Admin password" class="m-20">
+            {% endif %}
+            <input type="submit" value="Create">
+        </form>
+    </div>
+{% endblock %}

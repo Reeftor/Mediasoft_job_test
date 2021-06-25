@@ -1,3 +1,6 @@
 venv/
 .idea
-testproject/testproject/__pycache__
+testproject/testproject/__pycache__/
+testproject/imageuploader/__pycache__/
+testproject/imageuploader/migrations/__pycache__/
+testproject/media/

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}<title>Profile</title>{% endblock %}
+
+{% block hyperreferences %}
+<a href=" {% url 'logout' %}" class="right">Logout</a>
+{% endblock %}
+
+
+{% block content %}
+<h1>Welcome, {{username}}!</h1>
+<h2>Upload your images!</h2>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+   {{ form.as_p }}
+  <button type="submit">Upload</button>
+</form>
+{% if user_images %}
+    <h2 class="n-1">Your images:</h2>
+{% endif %}
+{% for i in user_images %}
+    <div class="icon-block">
+        <h4>{{i.title}}</h4>
+        <a href="{% url 'viewcount' i.pk %}" target="_blank"><input type="image" src="{{i.image_url}}" height="80px" width="140px"></a><br>
+        <h4>Количество просмотров: {{i.view_count}}</h4>
+        <a href="{% url 'delete' i.pk %}" class="button1">Delete image</a><br>
+    </div>
+{% empty %}
+    <h3 class="n-1">You have no uploaded images!</h3>
+{% endfor %}
+
+{% endblock %}
