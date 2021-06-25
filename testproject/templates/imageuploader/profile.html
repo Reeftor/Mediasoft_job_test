@@ -5,51 +5,27 @@
 <a href=" {% url 'logout' %}" class="right">Logout</a>
 {% endblock %}
 
-{% block content %}
-<div>
-  <h1>{{uid}}</h1>
-  <h1>{{username}}</h1>
 
-</div>
+{% block content %}
+<h1>Welcome, {{username}}!</h1>
+<h2>Upload your images!</h2>
 <form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
    {{ form.as_p }}
   <button type="submit">Upload</button>
 </form>
-<style>
-    .button1 {
-    border: none;
-    color: black;
-    padding: 2px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 1px 1px;
-    transition-duration: 2s;
-    cursor: pointer;
-    background-color: #ff0;
-    color: black;
-    height: auto;
-    width: auto;
-}
-
-    .button1:hover {background-color: #f00;}
-
-    .icon-block {
-    display: inline-block;
-    padding: 20px 15px;}
-</style>
-
+{% if user_images %}
+    <h2 class="n-1">Your images:</h2>
+{% endif %}
 {% for i in user_images %}
     <div class="icon-block">
-        <h3>{{i.title}}</h3>  <h4>{{i.id}}</h4>
-        <a href="{% url 'viewcount' i.pk %}"><input type="image" src="{{i.image_url}}" height="80px" width="140px"></a><br>
+        <h4>{{i.title}}</h4>
+        <a href="{% url 'viewcount' i.pk %}" target="_blank"><input type="image" src="{{i.image_url}}" height="80px" width="140px"></a><br>
         <h4>Количество просмотров: {{i.view_count}}</h4>
-        <a href="{% url 'delete' i.id%}" class="button1">Delete image</a><br>
+        <a href="{% url 'delete' i.pk %}" class="button1">Delete image</a><br>
     </div>
 {% empty %}
-    <h3>You have no uploaded images!</h3>
+    <h3 class="n-1">You have no uploaded images!</h3>
 {% endfor %}
 
 {% endblock %}

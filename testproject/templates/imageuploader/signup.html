@@ -2,25 +2,21 @@
 {% block title %}<title>Sign Up</title>{% endblock %}
 
 {% block content %}
-    <style>
-    .center {
-    width: 200px;
-    padding: 10px;
-    margin: auto;
-    }
-    .m-20 {
-    margin: 0px 0px 20px 0px;
-    }
-    </style>
     <div class="center">
-        <h1>Регистрация</h1>
-
+        <h3>Create account:</h3>
+        {% if error %}
+            <div style="color: red;">{{ error }}</div><br>
+        {% endif %}
         <form method="post">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Логин" class="m-20">
-            <input type="password" name="password" placeholder="Пароль" class="m-20">
-            <input type="password" name="password2" placeholder="Подтвердите пароль" class="m-20">
-            <input type="submit" value="Зарегистрироваться">
+            <input type="text" name="username" placeholder="Username" class="m-20">
+            <input type="password" name="password" placeholder="Password" class="m-20">
+            <input type="password" name="password2" placeholder="Confirm password" class="m-20">
+            {% if superuser %}
+                <p style="margin-top: 10px">Enter your password to create superuser:</p>
+                <input type="password" name="keyword" placeholder="Admin password" class="m-20">
+            {% endif %}
+            <input type="submit" value="Create">
         </form>
     </div>
 {% endblock %}

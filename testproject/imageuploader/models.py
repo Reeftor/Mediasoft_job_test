@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 
 class Image(models.Model):
 
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=30)
     image = models.ImageField(upload_to='images')
-    view_count = models.IntegerField(default=0, null=True)
+    view_count = models.IntegerField(default=0)
     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
 
     def __str__(self):

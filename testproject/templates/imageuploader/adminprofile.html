@@ -1,0 +1,39 @@
+{% extends 'imageuploader/profile.html' %}
+{% block title %}<title>AdminProfile</title>{% endblock %}
+
+{% block content %}
+
+<div>
+    <h1>Welcome, {{username}}!</h1>
+    {% if all_users %}
+        <h2>Signed up users:</h2>
+        <table border="1">
+        <tr>
+            <th>User</th><th>User_id</th><th>is_active</th><th colspan="2">ACTION</th>
+        </tr>
+
+    {% for us in all_users %}
+        <tr>
+            <th><a href="{% url 'userpage' us.pk %}">{{us}}</a></th>
+            <th>{{us.pk}}</th>
+            <th>{{us.is_active}}</th>
+            {% if us.is_active %}
+            <th><a href="{% url 'blockuser' us.pk %}" class="button1">Block User</a></th>
+            {% else %}
+            <th>
+            <a href="{% url 'blockuser' us.pk %}" class="button1 button2">Unblock User</a>
+            </th>
+            {% endif %}
+            <th>
+            <a href="{% url 'deleteuser' us.pk %}" class="button1">Delete User</a>
+            </th>
+    {% endfor %}
+        </tr>
+    </table>
+    {% else %}
+        <h2>We have ZERO users</h2>
+    {% endif %}
+
+</div>
+
+{% endblock %}

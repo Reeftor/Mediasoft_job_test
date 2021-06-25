@@ -8,3 +8,11 @@ class ImageForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ('title', 'image')
+
+
+class ImageEditForm(forms.ModelForm):
+    image = forms.FileField()
+
+    class Meta:
+        model = Image
+        fields = ('title', 'image')

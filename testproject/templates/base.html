@@ -3,8 +3,41 @@
 <head>
     <meta charset="UTF-8">
     {% block title %}<title>Imageuploader HOME</title>{% endblock %}
-</head>
-<style>
+    <style>
+    .center {
+    width: 200px;
+    padding: 10px;
+    margin: auto;
+    }
+    .m-20 {
+    margin: 0px 0px 20px 0px;
+    }
+    .button1 {
+    border: none;
+    color: black;
+    padding: 2px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 1px;
+    transition-duration: 2s;
+    cursor: pointer;
+    background-color: #ff0;
+    color: black;
+    height: auto;
+    width: auto;
+}
+
+    .button1:hover {background-color: #f00;}
+
+    .button2:hover {background-color: #00ff00;}
+
+    .icon-block {
+    display: inline-block;
+    padding: 20px 15px;
+    }
+
     .block {
     background-color: #7fb8f1;
     display: flex;
@@ -24,24 +57,29 @@
     margin-left: 1rem;
     color: black;
     }
-
-</style>
+    .n-1 {
+    margin-top: 40px;
+    margin-bottom: 15px
+    }
+    .users-block {
+    padding: 5px;
+    display: inline-block;
+    }
+    </style>
+</head>
 
 <body>
     <div class="block">
-        <h1 class="left">Imageuploader</h1>
+        <h1 class="left"><a href="{% url 'redirectref' %}">Imageuploader</a></h1>
         <div class="link-block">
             <a href=" {% url 'login' %}" class="right">Sign In</a>
             <a href=" {% url 'signup' %}" class="right">Sign Up</a>
             {% block hyperreferences %}
             {% endblock %}
-            <a href="#" class="right"></a>
         </div>
     </div>
 
     {% block content %}
-    <div>
-    </div>>
     {% endblock %}
 
 </body>
